@@ -248,14 +248,15 @@ SELECT * FROM EMP
 
 SELECT empno, RPAD(SUBSTR(empno, 1, 2), 4, '*') AS MASKING_EMPNO,
 	ename, RPAD(SUBSTR(ename, 1, 1), LENGTH(ename), '*') AS MASKING_ENAME
-	WHERE LENGTH(ename) = 5;
-FROM emp;
+FROM emp
+WHERE LENGTH(ename) = 5;
 
 SELECT empno, ename, sal,
-	TRUNC(sal / 21.5, 2) AS DAY_PAY,
-	ROUND(sal / 21.5 / 8, 1) AS TIME_PAY
+	TRUNC(sal / 21.5, 2) AS DAY_PAY,	-- 소수점 3번째 자리에서 자르고 2번째 자리 까지만 출력
+	ROUND(sal / 21.5 / 8, 1) AS TIME_PAY	-- 하루 8시간을 나누고 소수점 1번째 자리 까지만 출력
 FROM emp;
 
+-- 입사일 기준으로 3개월이 지난 첫 월요일
 SELECT empno, ename, hiredate,
 	TO_CHAR(NEXT_DAY(ADD_MONTHS(hiredate, 3), 'Monday'),'YYYY-MM-DD') AS R_JOB,
 	NVL(TO_CHAR(comm), 'N/A') AS COMM

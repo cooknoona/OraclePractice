@@ -1,0 +1,33 @@
+-- 집합연산자 : 두개 이상의 쿼리 결과를 하나로 결합하는 연산자(수직적 처리)
+-- 여러개의 SELECT 문을 하나로 연결하는 기능
+-- 집합 연산자로 결합하는 결과를 컬럼은 데이터 타입이 동일해야 한다
+SELECT EMPNO, ENAME, SAL, EMPNO
+FROM EMP
+WHERE DEPTNO = 10
+UNION
+SELECT EMPNO, ENAME, SAL, EMPNO
+FROM EMP
+WHERE DEPTNO = 20
+UNION
+SELECT EMPNO, ENAME, SAL, EMPNO
+FROM EMP
+WHERE DEPTNO = 30;
+
+-- 교집합 : INTERSECT
+-- 여러 개의 SQL 문의 결과에 대한 교집합을 반환
+SELECT EMPNO, ENAME, SAL
+FROM EMP
+WHERE SAL > 1000
+INTERSECT
+SELECT EMPNO, ENAME, SAL
+FROM EMP
+WHERE SAL < 2000
+
+-- 차집합 : MINUS
+-- 여러 개의 SQL문의 결과에 대한 차집합을 반환 한다
+SELECT EMPNO, ENAME, SAL
+FROM EMP
+MINUS
+SELECT EMPNO, ENAME, SAL
+FROM EMP
+WHERE SAL < 2000;
